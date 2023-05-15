@@ -7,7 +7,9 @@ const Header = () => {
     const {logOut, user} = useContext(authContext);
     const handleLogOut = () => {
         logOut()
-        .then(()=> alert('User logged out'))
+        .then(()=> {
+            alert('User logged out');
+        })
         .catch(error => console.log(error.message))
     }
     return (

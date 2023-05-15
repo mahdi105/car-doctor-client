@@ -8,17 +8,27 @@ const Bookings = () => {
 
     // Get All Bookings regarding the Current USER
     useState(() => {
-        fetch(`http://localhost:5000/bookings?email=${user && user.email}`)
+        fetch(`https://car-doctor-server-mahdi105.vercel.app/bookings?email=${user && user.email}`,{
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('car-access-token')}`
+            }
+        })
             .then(res => res.json())
-            .then(data => setBookings(data))
+            .then(data => {
+                if(!data.error){
+                    setBookings(data)
+                }
+            }) // 
             .catch(error => console.log(error.message))
     }, [])
-    console.log(bookings);
+    
+
     // PATCH / PUT(Update) ==> Confirm a booking
     const confirmBooking = (id) => {
         const proceed = confirm('Are you sure');
         if (proceed) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            fetch(`https://car-doctor-server-mahdi105.vercel.app/bookings/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json'
@@ -39,9 +49,11 @@ const Bookings = () => {
                 .catch(error => console.log(error.message))
         }
     }
+
+
     // DELETE a Booking
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://car-doctor-server-mahdi105.vercel.app/bookings/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -54,6 +66,8 @@ const Bookings = () => {
             })
             .catch(error => console.log(error.message))
     }
+
+
 console.log(bookings);
     return (
         <main className='container px-10 mx-auto py-20'>

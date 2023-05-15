@@ -14,7 +14,7 @@ const Checkout = () => {
         const email = form.email.value;
         const date = form.date.value;
         const bookings = {name, email, date, due:price, service_img:img, service_id:_id, title}
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://car-doctor-server-mahdi105.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
